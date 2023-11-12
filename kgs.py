@@ -1,6 +1,8 @@
 import pandas as pd
-import plotly.express as px
+import numpy as np
+import matplotlib.pyplot as plt
 import streamlit as st
+from tabulate import tabulate
 import statsmodels.api as sm
 from sklearn.linear_model import LinearRegression
 
@@ -15,18 +17,41 @@ kw = pd.read_csv(url)
 
 kitten_columns = ['A (Male)', 'B (Male)', 'C (Female)', 'D (Female)', 'E (Female)']
 
-# Calculate the mean for each day
+# Set the figure size globally
+plt.rcParams['figure.figsize'] = (6, 4)
+
+# Define colors for each kitten
+colors = ['#FFD700', 'orange', 'red', 'blue', 'green']
+
+# Create the line chart with grid lines and specified colors
+fig, ax = plt.subplots()
+for i, column in enumerate(kitten_columns):
+    kw[column].plot(grid=True, color=colors[i], ax=ax)
+
+# Calculate the S.D. and G%
 kw['Mean'] = kw[kitten_columns].mean(axis=1).round(1)
+# Add the line for the 'Mean' column
+plt.xlabel('Day No.')
+plt.ylabel('Weight (g)')
+plt.title('Gucci & Mui Kitten Growth Record')
+plt.legend(kitten_columns)
 
-# Create the line chart using Plotly
-fig = px.line(kw, x='Day', y=kitten_columns, title='Gucci & Mui Kitten Growth Record')
-fig.add_scatter(x=kw['Day'], y=kw['Mean'], mode='lines', name='Mean', line=dict(color='lightgrey', dash='dash'))
+# Add the legend for 'Mean' below 'E (Female)'
+handles, labels = plt.gca().get_legend_handles_labels()
+handles.append(plt.Line2D([], [], color='lightgrey', linestyle='--'))
+labels.append('Mean')
 
-# Set the y-axis range
-fig.update_yaxes(range=[75, kw[kitten_columns].values.max()])
+plt.legend(handles, labels)
+
+plt.ylim(75, plt.ylim()[1])
+kw['Mean'].plot(grid=True, color='lightgrey', linestyle='--')
 
 # Display the chart using Streamlit
-st.plotly_chart(fig)
+st.pyplot(fig)
+
+# Calculate the S.D. and G%
+kw['S.D.'] = kw[kitten_columns].std(axis=1).round(1)
+kw['G%'] = (kw['Mean'].pct_change() * 100).fillna(0).round(1)
 
 # Display the data table using Streamlit
 st.table(kw)
