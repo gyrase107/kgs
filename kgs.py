@@ -9,6 +9,15 @@ from sklearn.linear_model import LinearRegression
 st.markdown("<h3 style='text-align: center;'>Chak's Family Kittens Growth Journey</h3>", unsafe_allow_html=True)
 st.markdown("")
 
+st.markdown("<h6>These are my parents, Chak Gucci and Chak Mui:</h6>", unsafe_allow_html=True)
+
+st.image("https://drive.google.com/uc?export=view&id=1B_77o4HNOsl459OfLsze3adg3TohXqnC", width=300)
+st.image("https://drive.google.com/uc?export=view&id=1GwN1S5zBkzTeo5K84Gf60ngmP03ftAOc", width=300)
+
+st.markdown("")
+st.markdown("")
+st.markdown("<h6>Growth Record:</h6>", unsafe_allow_html=True)
+
 # URL of the CSV file on Google Drive
 url = 'https://drive.google.com/uc?id=1gPtAzNUpH8qxdQnjw5GQknzwTdETJglZ'
 
@@ -33,7 +42,7 @@ kw['Mean'] = kw[kitten_columns].mean(axis=1).round(1)
 # Add the line for the 'Mean' column
 plt.xlabel('Day No.')
 plt.ylabel('Weight (g)')
-plt.title('Gucci & Mui Kitten Growth Record')
+plt.title('Kitten Weight (g) by Day')
 plt.legend(kitten_columns)
 
 # Add the legend for 'Mean' below 'E (Female)'
@@ -56,7 +65,7 @@ kw['G%'] = (kw['Mean'].pct_change() * 100).fillna(0).round(1)
 # Display the data table using Streamlit
 st.table(kw)
 
-st.markdown("<h4>OLS Regression Results:</h4>", unsafe_allow_html=True)
+st.markdown("<h6>OLS Regression Results:</h6>", unsafe_allow_html=True)
 
 # Define the predictors (X) and the target variable (y)
 X = kw[['Day']]
