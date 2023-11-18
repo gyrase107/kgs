@@ -35,7 +35,7 @@ kwe = kw[['Day', 'E (Female)', 'Mean']]
 kwe_col = ['E (Female)']
 
 # Set default page to 'Homepage'
-st.set_page_config(page_title='Homepage', layout='wide')
+st.set_page_config(page_title='Homepage')
 
 # Open the sidebar by default
 st.sidebar.header('Sidebar - Please Select')
@@ -107,7 +107,7 @@ if selected_page == 'HomePage':
     kw['G%'] = (kw['Mean'].pct_change() * 100).fillna(0).round(1)
 
     # Display the data table using Streamlit
-    st.table(kw.style.format("{:.1f}").set_properties(**{'text-align': 'left', 'font-size': '15px', 'color': 'black'}))
+    st.table(kw.style.format("{:.1f}").set_properties(**{'text-align': 'left', 'font-size': '15px', 'color': 'white'}))
 
     
 # Regression Analysis      
