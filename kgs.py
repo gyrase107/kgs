@@ -107,7 +107,7 @@ if selected_page == 'HomePage':
     kw['G%'] = (kw['Mean'].pct_change() * 100).fillna(0).round(1)
 
     # Display the data table using Streamlit
-    st.table(kw.style.format("{:.1f}").set_properties(**{'text-align': 'left', 'font-size': '15px', 'color': 'white'}))
+    st.table(kw.style.format("{:.1f}").set_properties(**{'text-align': 'left', 'font-size': '15px', 'color': 'grey'}))
 
     
 # Regression Analysis      
