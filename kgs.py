@@ -61,17 +61,13 @@ if selected_page == 'HomePage':
     
     # Display images side by side
 
-    col1, col2 = st.columns(2)
-    with col1:
-        st.image("https://drive.google.com/uc?export=view&id=1B_77o4HNOsl459OfLsze3adg3TohXqnC", width=300)
-    with col2:
-        st.image("https://drive.google.com/uc?export=view&id=1GwN1S5zBkzTeo5K84Gf60ngmP03ftAOc", width=250)
+    st.image("https://drive.google.com/uc?export=view&id=1B_77o4HNOsl459OfLsze3adg3TohXqnC", width=400)
         
     st.markdown("")
     st.markdown("<h5>Growth Record:</h5>", unsafe_allow_html=True)
     
     # Set the figure size globally
-    plt.rcParams['figure.figsize'] = (8, 5)
+    plt.rcParams['figure.figsize'] = (8, 4)
     plt.rcParams['font.size'] = 10
 
     # Define colors for each kitten
@@ -98,8 +94,12 @@ if selected_page == 'HomePage':
 
     plt.legend(handles, labels, loc='upper left', fontsize=8)
 
+    plt.xlim(0, plt.xlim()[1])  # Set the minimum value of x-axis to 0
     plt.ylim(75, plt.ylim()[1])
     kw['Mean'].plot(grid=True, color='lightgrey', linestyle='--')
+
+    # Set the x-axis tick labels to whole numbers
+    ax.xaxis.set_major_locator(plt.MaxNLocator(integer=True))
 
     # Display the chart using Streamlit
     st.pyplot(fig)
