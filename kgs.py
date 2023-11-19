@@ -60,16 +60,18 @@ if selected_page == 'HomePage':
     st.markdown("<h5>These are my parents, Chak Gucci and Chak Mui:</h5>", unsafe_allow_html=True)
     
     # Display images side by side
-    col1, col2, col3 = st.columns(3)
+
+    col1, col2 = st.columns(2)
     with col1:
-        st.image("https://drive.google.com/uc?export=view&id=1B_77o4HNOsl459OfLsze3adg3TohXqnC", width=460)
-    with col3:
-        st.image("https://drive.google.com/uc?export=view&id=1GwN1S5zBkzTeo5K84Gf60ngmP03ftAOc", width=300)
-    
+        st.image("https://drive.google.com/uc?export=view&id=1B_77o4HNOsl459OfLsze3adg3TohXqnC", width=300)
+    with col2:
+        st.image("https://drive.google.com/uc?export=view&id=1GwN1S5zBkzTeo5K84Gf60ngmP03ftAOc", width=250)
+        
+    st.markdown("")
     st.markdown("<h5>Growth Record:</h5>", unsafe_allow_html=True)
     
     # Set the figure size globally
-    plt.rcParams['figure.figsize'] = (10, 6)
+    plt.rcParams['figure.figsize'] = (8, 5)
     plt.rcParams['font.size'] = 10
 
     # Define colors for each kitten
@@ -106,8 +108,23 @@ if selected_page == 'HomePage':
     kw['S.D.'] = kw[kitten_columns].std(axis=1).round(1)
     kw['G%'] = (kw['Mean'].pct_change() * 100).fillna(0).round(1)
 
-    # Display the data table using Streamlit
-    st.table(kw.style.format("{:.1f}").set_properties(**{'text-align': 'left', 'font-size': '15px', 'color': 'grey'}))
+    new_columns = {
+    'A (Male)': 'A',
+    'B (Male)': 'B',
+    'C (Female)': 'C',
+    'D (Female)': 'D',
+    'E (Female)': 'E'}
+    
+    kwt = kw.rename(columns=new_columns)
+
+    # Format the DataFrame column to have one decimal place
+    formatted_kwt = kwt.applymap("{:.1f}".format)
+
+    # Convert the formatted DataFrame to a Markdown table
+    markdown_table = formatted_kwt.to_markdown(index=False)  # Set index=False to exclude the index column
+
+    # Display the Markdown table with a smaller font size
+    st.markdown(markdown_table, unsafe_allow_html=True)  # Add unsafe_allow_html=True to render HTML tags for font size
 
     
 # Regression Analysis      
@@ -248,7 +265,7 @@ elif selected_page == '1st Bro':
     
     # Define the predictors (X) and the target variable (y)
     Xa = kwa[['Day']]
-    ya = kwa['Mean']
+    ya = kwa['A (Male)']
 
     # Create and fit the linear regression model
     model_a = LinearRegression()
@@ -322,7 +339,7 @@ elif selected_page == '2nd Bro':
 
         # Define the predictors (X) and the target variable (y)
     Xb = kwb[['Day']]
-    yb = kwb['Mean']
+    yb = kwb['B (Male)']
 
     # Create and fit the linear regression model
     model_b = LinearRegression()
@@ -396,7 +413,7 @@ elif selected_page == '3rd Sis':
 
     # Define the predictors (X) and the target variable (y)
     Xc = kwc[['Day']]
-    yc = kwc['Mean']
+    yc = kwc['C (Female)']
 
     # Create and fit the linear regression model
     model_c = LinearRegression()
@@ -470,7 +487,7 @@ elif selected_page == '4th Sis':
 
         # Define the predictors (X) and the target variable (y)
     Xd = kwd[['Day']]
-    yd = kwd['Mean']
+    yd = kwd['D (Female)']
 
     # Create and fit the linear regression model
     model_d = LinearRegression()
@@ -544,7 +561,7 @@ elif selected_page == '5th Sis':
 
     # Define the predictors (X) and the target variable (y)
     Xe = kwe[['Day']]
-    ye = kwe['Mean']
+    ye = kwe['E (Female)']
 
     # Create and fit the linear regression model
     model_e = LinearRegression()
