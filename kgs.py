@@ -67,8 +67,8 @@ if selected_page == 'HomePage':
     st.markdown("<h5>Growth Record:</h5>", unsafe_allow_html=True)
     
     # Set the figure size globally
-    plt.rcParams['figure.figsize'] = (8, 4)
-    plt.rcParams['font.size'] = 10
+    plt.rcParams['figure.figsize'] = (10, 8)
+    plt.rcParams['font.size'] = 12
 
     # Define colors for each kitten
     colors = ['#FFD700', 'orange', 'red', 'blue', 'green']
@@ -84,7 +84,7 @@ if selected_page == 'HomePage':
 
     plt.xlabel('Day No.')
     plt.ylabel('Weight (g)')
-    plt.title('Kitten Weight (g) by Day', fontsize=10)
+    plt.title('Kitten Weight (g) by Day', fontsize=12)
     plt.legend(kitten_columns, fontsize=8)
 
     # Add the legend for 'Mean' below 'E (Female)'
