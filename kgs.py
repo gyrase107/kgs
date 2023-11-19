@@ -62,7 +62,10 @@ if selected_page == 'HomePage':
     # Display images side by side
 
     st.image("https://drive.google.com/uc?export=view&id=1B_77o4HNOsl459OfLsze3adg3TohXqnC", width=400)
-        
+    
+    st.markdown("<h5>A video of 2nd Bro and All of Us:</h5>", unsafe_allow_html=True)
+    st.markdown('<iframe width="400" height="300" src="https://www.youtube.com/embed/uQWlsoxVU6w" frameborder="0" allowfullscreen></iframe>', unsafe_allow_html=True)
+    
     st.markdown("")
     st.markdown("<h5>Growth Record:</h5>", unsafe_allow_html=True)
     
