@@ -41,7 +41,7 @@ st.set_page_config(page_title='Homepage')
 st.sidebar.header('Sidebar - Please Select')
 
 st.sidebar.title("Pages")
-selected_page = st.sidebar.selectbox("", ['HomePage', 'Regression Analysis', 'About British Short Hair', '1st Bro', '2nd Bro', '3rd Sis', '4th Sis', '5th Sis', 'Leave Your Comments'])
+selected_page = st.sidebar.selectbox("", ['HomePage', 'Regression Analysis', 'About British Short Hair', '1st Bro', '2nd Bro', '3rd Sis', '4th Sis', '5th Sis', 'Leave Your Comments', "Visit Record"])
 
 # HOMEPAGE
 if selected_page == 'HomePage':
@@ -626,3 +626,30 @@ elif selected_page == 'Leave Your Comments':
         with open("comments.txt", "a") as file:
             file.write(f"{current_time}: {user_comment}\n")
         st.success("Your comment has been submitted.")
+
+elif selected_page == 'Visit Record':
+    # Add watermark and copyright statement
+    watermark = "Author: Alan Fung"
+    copyright = "Copyright © 2023 Alan Fung. All rights reserved."
+    
+    # Display watermark and copyright statement
+    st.markdown(f'<div style="position:absolute; top:10px; right:10px; font-size:12px;">{watermark}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div style="position:absolute; bottom:10px; right:10px; font-size:12px;">{copyright}</div>', unsafe_allow_html=True)
+    
+    # Function to record visit count
+    def record_visit_count():
+        visit_count = st.session_state.get('visit_count', 0) + 1
+        st.session_state['visit_count'] = visit_count
+
+    # Main Streamlit app
+    def main():
+
+        # Record visit count
+        record_visit_count()
+        visit_count = st.session_state.get('visit_count', 0)
+
+        # Display visit count with larger text
+        st.markdown(f"<h1 style='text-align: center;'>Visit Count: {visit_count}</h1>", unsafe_allow_html=True)
+
+    if __name__ == "__main__":
+        main()
